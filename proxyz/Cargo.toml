@@ -1,0 +1,13 @@
+[package]
+name = "proxyz"
+version = "0.1.0"
+authors = ["zchira"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = { version="3.3.2", features=["openssl"] }
+openssl = "0.10.31"
+url = "2.2.0"
+reqwest = "0.10.10"
