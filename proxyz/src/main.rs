@@ -1,4 +1,5 @@
 use actix_web::{web, App, HttpServer, HttpRequest, HttpResponse, Responder};
+use actix_cors::Cors;
 // use actix_web::client::{Client, ClientBuilder};
 // use url::{Url, ParseError};
 use reqwest;
@@ -17,6 +18,7 @@ async fn index(req: HttpRequest) -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| App::new()
+        .wrap(Cors::permissive())
         .service(web::resource("/cors/{tail:.*}").to(index))
         .service(actix_files::Files::new("/", "../frontend/dist").index_file("index.html"))
         )

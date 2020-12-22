@@ -3,8 +3,12 @@ const parser = new Parser();
 // const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
 // const CORS_PROXY = 'https://yacdn.org/proxy/';
 // const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-// const CORS_PROXY = 'http://127.0.0.1:4040/cors/';
-const CORS_PROXY = '/cors/';
+
+let CORS_PROXY = '/cors/';
+
+if (process.env.NODE_ENV === 'development') {
+    CORS_PROXY = 'http://127.0.0.1:4040/cors/';
+}
 // import * as m from '../mutation_types';
 // import * as a from '../action_types';
 
