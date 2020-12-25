@@ -1,82 +1,86 @@
 import Parser from 'rss-parser';
+import * as m from '../mutation_types';
+import * as a from '../action_types';
 const parser = new Parser();
-// const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
-// const CORS_PROXY = 'https://yacdn.org/proxy/';
-// const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 let CORS_PROXY = '/cors/';
 
 if (process.env.NODE_ENV === 'development') {
-    CORS_PROXY = 'http://127.0.0.1:4040/cors/';
+    // CORS_PROXY = 'http://127.0.0.1:4040/cors/';
+    CORS_PROXY = 'http://192.168.1.122:4040/cors/';
 }
-// import * as m from '../mutation_types';
-// import * as a from '../action_types';
 
 // initial state
 const state = {
-    categories: [
-        {
-            name: 'News',
-            id: 0
-        },
-        {
-            name: 'Sport',
-            id: 1
-        }
-    ],
+    categories: ['News', 'Sport'],
     sources: [
         {
+            id: '1',
             name: 'Juzne Vesti',
             url: '',
-            categotyId: 0
+            category: 'News'
         },
         {
+            id: '2',
             name: 'B92',
             url: '',
-            categotyId: 0
+            category: 'News'
         },
         {
+            id: '3',
             name: 'Sport Klub',
             url: '',
-            categotyId: 1
+            category: 'Sport'
         }
     ],
+    activeCategory: 'News',
+    activeSource: '1',
     fetchingArticles: false,
     articles: []
 };
 
 const getters = {
-    articles: state => state.articles
+    articles: state => state.articles,
+    categories: state => state.categories,
+    sources: state => state.sources,
+    activeCategory: state => state.activeCategory,
+    activeSource: state => state.activeSource
 };
 
 const mutations = {
-    fetchingArticles (state, fetching) {
+    [m.FETCHING_ARTICLES] (state, fetching) {
         state.fetchingArticles = fetching;
     },
-    feedItems (state, { items }) {
+    [m.SET_ARTICLES] (state, { items }) {
         state.articles = items;
         state.fetchingArticles = false;
+    },
+    [m.FETCHING_ARTICLES_FAILED] (state) {
+        state.articles = [];
+        state.fetchArticles = false;
+    },
+    [m.SET_ACTIVE_CATEGORY] (state, category) {
+        if (state.categories.indexOf(category) >= 0) {
+            state.activeCategory = category;
+        }
+    },
+    [m.SET_ACTIVE_SOURCE] (state, { id }) {
+        const src = state.sources.find(f => f.id === id);
+        if (src !== undefined) {
+            state.activeSource = src.id;
+        }
     }
-    // [m.SAP_REQUEST] (state) {
-    //     state.fetchingSapStreams = true;
-    // },
-    // [m.SAP_SUCCESS] (state, sap) {
-    //     state.sapStreams = sap;
-    //     state.fetchingSapStreams = false;
-    // },
-    // [m.SAP_FAILED] (state) {
-    //     state.fetchingSapStreams = false;
-    // }
 };
 
 const actions = {
-    fetchArticles ({ commit }) {
-        commit('fetchingArticles', true);
+    [a.FETCH_ARTICLES] ({ commit }) {
+        commit(m.FETCHING_ARTICLES, true);
         parser.parseURL(CORS_PROXY + 'http://feeds.feedburner.com/juznevesti')
             .then(feed => {
-                commit('feedItems', { items: feed.items });
+                commit(m.SET_ARTICLES, { items: feed.items });
             })
             .catch(e => {
+                commit(m.FETCHING_ARTICLES_FAILED);
                 console.log('error');
                 console.log(e);
             });

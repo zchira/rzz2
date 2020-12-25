@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+// import List from '../components/List.vue';
+import Header from '../components/Header.vue';
+import SearchFeedsResults from '../components/SearchFeedsResults.vue';
 
 Vue.use(VueRouter);
 
@@ -8,7 +11,19 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        components:
+            {
+                default: Home,
+                header: Header
+            }
+    },
+    {
+        path: '/find-feeds',
+        name: 'FindFeeds',
+        components:
+            {
+                default: SearchFeedsResults
+            }
     },
     {
         path: '/about',
