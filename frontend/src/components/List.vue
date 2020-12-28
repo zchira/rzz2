@@ -28,6 +28,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import * as a from '@/store/action_types';
 
 export default {
     name: 'List',
@@ -36,6 +37,7 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'activeSource',
             'articles'
         ])
     },
@@ -43,6 +45,16 @@ export default {
         return {
             selectedItem: 'Vest1'
         };
+    },
+    watch: {
+        activeSource: function (newVal, oldVal) {
+            if (newVal === undefined) {
+                return;
+            }
+            console.log(newVal);
+
+            this.$store.dispatch(a.FETCH_ARTICLES, { url: newVal.url });
+        }
     },
     methods: {
         onTouch: function () {

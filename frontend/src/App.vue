@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import * as a from './store/action_types';
+// import * as a from './store/action_types';
 
 export default {
     name: 'App',
@@ -25,7 +25,7 @@ export default {
     //
     }),
     mounted: function () {
-        this.$store.dispatch(a.FETCH_ARTICLES);
+        // this.$store.dispatch(a.FETCH_ARTICLES);
     }
 };
 </script>

@@ -17,13 +17,13 @@ const state = {
         {
             id: '1',
             name: 'Juzne Vesti',
-            url: '',
+            url: 'http://feeds.feedburner.com/juznevesti',
             category: 'News'
         },
         {
             id: '2',
             name: 'B92',
-            url: '',
+            url: 'http://feeds.feedburner.com/juznevesti',
             category: 'News'
         },
         {
@@ -87,9 +87,14 @@ const mutations = {
 };
 
 const actions = {
-    [a.FETCH_ARTICLES] ({ commit }) {
+    [a.FETCH_ARTICLES] ({ commit }, { url }) {
         commit(m.FETCHING_ARTICLES, true);
-        parser.parseURL(CORS_PROXY + 'http://feeds.feedburner.com/juznevesti')
+        console.log('FETCH_ARTICLES');
+        console.log(url);
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+        }
+        parser.parseURL(CORS_PROXY + url) //  'http://feeds.feedburner.com/juznevesti')
             .then(feed => {
                 commit(m.SET_ARTICLES, { items: feed.items });
             })
