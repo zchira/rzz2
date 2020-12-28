@@ -28,13 +28,24 @@ const state = {
         },
         {
             id: '3',
+            name: 'N1',
+            url: '',
+            category: 'News'
+        },
+        {
+            id: '4',
             name: 'Sport Klub',
             url: '',
             category: 'Sport'
         }
     ],
     activeCategory: 'News',
-    activeSource: '1',
+    activeSource: {
+        id: '2',
+        name: 'B92',
+        url: '',
+        category: 'News'
+    },
     fetchingArticles: false,
     articles: []
 };
@@ -64,10 +75,13 @@ const mutations = {
             state.activeCategory = category;
         }
     },
-    [m.SET_ACTIVE_SOURCE] (state, { id }) {
-        const src = state.sources.find(f => f.id === id);
+    [m.SET_ACTIVE_SOURCE] (state, source) {
+        console.log('SET_ACTIVE_SOURCE');
+        console.log(source.name);
+        const src = state.sources.find(f => f.id === source.id);
         if (src !== undefined) {
-            state.activeSource = src.id;
+            console.log(src.name);
+            state.activeSource = src;
         }
     }
 };

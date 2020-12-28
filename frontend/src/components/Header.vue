@@ -1,16 +1,14 @@
 <template>
-    <tabs storeGetter='categories'></tabs>
+    <categories-tabs></categories-tabs>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
-import Tabs from '@/components/Tabs.vue';
+import CategoriesTabs from './CategoriesTabs.vue';
 
 export default {
     name: 'Home',
     components: {
-        Tabs
+        CategoriesTabs
     },
     methods: {
     }
