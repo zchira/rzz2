@@ -1,31 +1,64 @@
 <template>
   <v-app>
     <v-app-bar
+      class="pt-6"
+      style="height: 112px;"
       app
       color="primary">
-      <router-view name="header"></router-view>
-      <!-- <tabs></tabs> -->
+      <v-app-bar-nav-icon @click.stop="showNav = !showNav"></v-app-bar-nav-icon>
+      <router-view
+        name="header"
+        ></router-view>
     </v-app-bar>
+    <v-navigation-drawer
+      v-model="showNav"
+      app>
+      <v-list dense nav>
+        <v-list-item-group>
+          <v-list-item :ripple="false" :to="'/'">
+            <v-list-item-icon>
+              <v-icon>mdi-video-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Video Streams</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <template v-slot:append>
+        <v-list>
+          <v-list-item :ripple="false">
+            <v-list-item-icon>
+              <v-switch
+                label="Dark Mode"
+                dense
+                @change="$vuetify.theme.dark = !$vuetify.theme.dark"
+                ></v-switch>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list>
+      </template>
+    </v-navigation-drawer>
 
-    <v-main>
-      <router-view></router-view>
-      <!-- <list></list> -->
+    <!-- Sizes your content based upon application components -->
+    <v-main style="padding-top: 112px">
+        <router-view></router-view>
     </v-main>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-// import * as a from './store/action_types';
 
 export default {
     name: 'App',
     components: {
     },
     data: () => ({
-    //
+        showNav: false
     }),
     mounted: function () {
-        // this.$store.dispatch(a.FETCH_ARTICLES);
     }
 };
 </script>
