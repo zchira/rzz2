@@ -12,7 +12,7 @@
                 v-for="(item, i) in activeSources"
                 :key="i"
               >
-                {{ item.name }}
+                {{ item.title }}
             </v-tab>
         </v-tabs>
     </v-card>

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 // import List from '../components/List.vue';
 import Header from '../components/Header.vue';
-import SearchFeedsResults from '../components/SearchFeedsResults.vue';
+import SearchFeedsResults from '../views/SearchFeedsResults.vue';
 
 Vue.use(VueRouter);
 

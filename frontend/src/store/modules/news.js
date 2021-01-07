@@ -16,25 +16,25 @@ const state = {
     sources: [
         {
             id: '1',
-            name: 'Juzne Vesti',
+            title: 'Juzne Vesti',
             url: 'http://feeds.feedburner.com/juznevesti',
             category: 'News'
         },
         {
             id: '2',
-            name: 'B92',
+            title: 'B92',
             url: 'http://feeds.feedburner.com/juznevesti',
             category: 'News'
         },
         {
             id: '3',
-            name: 'N1',
+            title: 'N1',
             url: '',
             category: 'News'
         },
         {
             id: '4',
-            name: 'Sport Klub',
+            title: 'Sport Klub',
             url: '',
             category: 'Sport'
         }
@@ -42,7 +42,7 @@ const state = {
     activeCategory: 'News',
     activeSource: {
         id: '2',
-        name: 'B92',
+        title: 'B92',
         url: '',
         category: 'News'
     },
@@ -77,12 +77,28 @@ const mutations = {
     },
     [m.SET_ACTIVE_SOURCE] (state, source) {
         console.log('SET_ACTIVE_SOURCE');
-        console.log(source.name);
+        console.log(source.title);
         const src = state.sources.find(f => f.id === source.id);
         if (src !== undefined) {
-            console.log(src.name);
+            console.log(src.title);
             state.activeSource = src;
         }
+    },
+    [m.ADD_SOURCE] (state, { title, url, category }) {
+        if (category === undefined) {
+            category = state.activeCategory;
+        }
+
+        const exist = state.sources.find(s => s.url === url);
+        if (exist !== undefined) {
+            console.log('WARNING: source already exists');
+        }
+
+        state.sources.push({
+            title,
+            url,
+            category
+        });
     }
 };
 
@@ -104,19 +120,6 @@ const actions = {
                 console.log(e);
             });
     }
-    // [a.FETCH_SAP] ({ commit }) {
-    //     commit(m.SAP_REQUEST);
-    //
-    //     return backend.sap.getSap()
-    //         .then(sap => {
-    //             commit(m.SAP_SUCCESS, sap);
-    //             return sap;
-    //         })
-    //         .catch(err => {
-    //             commit(m.SAP_FAILED);
-    //             throw err;
-    //         });
-    // }
 };
 
 export default {

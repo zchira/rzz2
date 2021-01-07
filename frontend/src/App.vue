@@ -7,19 +7,24 @@
       color="primary">
       <v-app-bar-nav-icon @click.stop="showNav = !showNav"></v-app-bar-nav-icon>
       <router-view
-        name="header"
-        ></router-view>
+        name="header"></router-view>
     </v-app-bar>
     <v-navigation-drawer
       v-model="showNav"
       app>
       <v-list dense nav>
         <v-list-item-group>
-          <v-list-item :ripple="false" :to="'/'">
+          <v-list-item :to="'/'">
             <v-list-item-icon>
-              <v-icon>mdi-video-outline</v-icon>
+              <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Video Streams</v-list-item-title>
+              <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+          <v-list-item :to="'/find-feeds'">
+            <v-list-item-icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-list-item-icon>
+              <v-list-item-title>Find Feeds</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
