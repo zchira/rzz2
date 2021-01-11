@@ -48,10 +48,13 @@ export default {
     },
     watch: {
         activeSource: function (newVal, oldVal) {
+            console.log('watch');
             if (newVal === undefined) {
                 return;
             }
             console.log(newVal);
+            console.log('fetch articles');
+            console.log(newVal.url);
 
             this.$store.dispatch(a.FETCH_ARTICLES, { url: newVal.url });
         }

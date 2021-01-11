@@ -41,7 +41,7 @@ export default {
         },
         selectedSource: {
             get: function () {
-                const as = this.sources.find(x => x.id === this.activeSource.id);
+                const as = this.sources.find(x => x.url === this.activeSource.url);
                 if (as === undefined) {
                     return undefined;
                 }

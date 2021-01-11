@@ -1,6 +1,7 @@
 import Parser from 'rss-parser';
 import * as m from '../mutation_types';
 import * as a from '../action_types';
+import { db } from '../localDb';
 const parser = new Parser();
 
 let CORS_PROXY = '/cors/';
@@ -10,49 +11,20 @@ if (process.env.NODE_ENV === 'development') {
     CORS_PROXY = 'http://192.168.1.122:4040/cors/';
 }
 
+const dbSources = db.load();
+
 // initial state
 const state = {
-    categories: ['News', 'Sport'],
-    sources: [
-        {
-            id: '1',
-            title: 'Juzne Vesti',
-            url: 'http://feeds.feedburner.com/juznevesti',
-            category: 'News'
-        },
-        {
-            id: '2',
-            title: 'B92',
-            url: 'http://feeds.feedburner.com/juznevesti',
-            category: 'News'
-        },
-        {
-            id: '3',
-            title: 'N1',
-            url: '',
-            category: 'News'
-        },
-        {
-            id: '4',
-            title: 'Sport Klub',
-            url: '',
-            category: 'Sport'
-        }
-    ],
-    activeCategory: 'News',
-    activeSource: {
-        id: '2',
-        title: 'B92',
-        url: '',
-        category: 'News'
-    },
+    sources: dbSources,
+    activeCategory: dbSources[0].category,
+    activeSource: dbSources[0],
     fetchingArticles: false,
     articles: []
 };
 
 const getters = {
     articles: state => state.articles,
-    categories: state => state.categories,
+    categories: state => [...new Set(state.sources.map(s => s.category))],
     sources: state => state.sources,
     activeCategory: state => state.activeCategory,
     activeSource: state => state.activeSource
@@ -71,14 +43,14 @@ const mutations = {
         state.fetchArticles = false;
     },
     [m.SET_ACTIVE_CATEGORY] (state, category) {
-        if (state.categories.indexOf(category) >= 0) {
+        if (state.sources.find(s => s.category === category)) {
             state.activeCategory = category;
         }
     },
     [m.SET_ACTIVE_SOURCE] (state, source) {
         console.log('SET_ACTIVE_SOURCE');
         console.log(source.title);
-        const src = state.sources.find(f => f.id === source.id);
+        const src = state.sources.find(f => f.url === source.url);
         if (src !== undefined) {
             console.log(src.title);
             state.activeSource = src;
@@ -99,6 +71,7 @@ const mutations = {
             url,
             category
         });
+        db.save(state.sources);
     }
 };
 
