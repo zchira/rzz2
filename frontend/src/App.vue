@@ -26,6 +26,18 @@
             </v-list-item-icon>
               <v-list-item-title>Find Feeds</v-list-item-title>
           </v-list-item>
+          <v-list-item :to="'/export'">
+            <v-list-item-icon>
+              <v-icon>mdi-export</v-icon>
+            </v-list-item-icon>
+              <v-list-item-title>Export Feeds</v-list-item-title>
+          </v-list-item>
+          <v-list-item :to="'/import'">
+            <v-list-item-icon>
+              <v-icon>mdi-import</v-icon>
+            </v-list-item-icon>
+              <v-list-item-title>Import Feeds</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
