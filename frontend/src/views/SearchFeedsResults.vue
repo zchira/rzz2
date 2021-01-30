@@ -40,6 +40,7 @@
 import SearchFeedsText from '../components/SearchFeedsText';
 import * as m from '../store/mutation_types';
 import * as htmlparser2 from 'htmlparser2';
+import { CORS_PROXY } from '../settings.js';
 
 export default {
     name: 'SearchFeedsResults',
@@ -49,18 +50,18 @@ export default {
     data: function () {
         return {
             feeds: [
-                {
-                    href: 'Jan 9, 2014',
-                    title: 'Photos'
-                },
-                {
-                    href: 'Jan 17, 2014',
-                    title: 'Recipes'
-                },
-                {
-                    href: 'Jan 28, 2014',
-                    title: 'Work'
-                }
+                // {
+                //     href: 'Jan 9, 2014',
+                //     title: 'Photos'
+                // },
+                // {
+                //     href: 'Jan 17, 2014',
+                //     title: 'Recipes'
+                // },
+                // {
+                //     href: 'Jan 28, 2014',
+                //     title: 'Work'
+                // }
             ]
         };
     },
@@ -69,7 +70,7 @@ export default {
     methods: {
         onSearchFeeds: function (url) {
             console.log('search: ' + url);
-            fetch('http://192.168.1.122:4040/cors/' + url)
+            fetch(CORS_PROXY + url)
                 .then(r => {
                     console.log('ende');
                     r.text()

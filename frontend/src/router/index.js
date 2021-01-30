@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 // import List from '../components/List.vue';
 import Header from '../components/Header.vue';
+import ExportSources from '../views/ExportSources.vue';
 import SearchFeedsResults from '../views/SearchFeedsResults.vue';
 
 Vue.use(VueRouter);
@@ -24,6 +25,14 @@ const routes = [
             {
                 default: SearchFeedsResults
             }
+    },
+    {
+        path: '/export',
+        name: 'ExportSources',
+        components:
+        {
+            default: ExportSources
+        }
     },
     {
         path: '/about',
