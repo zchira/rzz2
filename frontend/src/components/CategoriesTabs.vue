@@ -1,21 +1,19 @@
 <template>
-    <v-card class="pa-0">
-        <v-tabs
-            show-arrows
-            color="white"
-            background-color="primary"
-            class="pa-0 ma-0"
-            @change="onChanged"
+    <v-tabs
+        show-arrows
+        color="white"
+        background-color="primary"
+        class="pa-0 ma-0"
+        @change="onChanged"
 
-          >
-            <v-tab
-                v-for="i in categories"
-                :key="i"
-              >
-                {{ i }}
-            </v-tab>
-        </v-tabs>
-    </v-card>
+        >
+        <v-tab
+            v-for="i in categories"
+            :key="i"
+            >
+            {{ i }}
+        </v-tab>
+    </v-tabs>
 </template>
 <script>
 import { mapGetters } from 'vuex';

@@ -1,21 +1,19 @@
 <template>
-    <v-card class="pa-0">
-        <v-tabs
-            show-arrows
-            color="white"
-            background-color="primary"
-            class="pa-0 ma-0"
-            v-model="selectedSource"
-            :optional="optional"
-          >
-            <v-tab
-                v-for="(item, i) in activeSources"
-                :key="i"
-              >
-                {{ item.title }}
-            </v-tab>
-        </v-tabs>
-    </v-card>
+    <v-tabs
+        show-arrows
+        color="white"
+        background-color="primary"
+        class="pa-0 ma-0"
+        v-model="selectedSource"
+        :optional="optional"
+        >
+        <v-tab
+            v-for="(item, i) in activeSources"
+            :key="i"
+            >
+            {{ item.title }}
+        </v-tab>
+    </v-tabs>
 </template>
 
 <script>
